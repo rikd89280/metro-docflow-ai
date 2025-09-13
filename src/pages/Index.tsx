@@ -1,14 +1,23 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import { Login } from "@/components/Login";
+import { Dashboard } from "@/components/Dashboard";
 
 const Index = () => {
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
-  );
+  const [currentUser, setCurrentUser] = useState<string | null>(null);
+
+  const handleLogin = (role: string) => {
+    setCurrentUser(role);
+  };
+
+  const handleLogout = () => {
+    setCurrentUser(null);
+  };
+
+  if (currentUser) {
+    return <Dashboard userRole={currentUser} onLogout={handleLogout} />;
+  }
+
+  return <Login onLogin={handleLogin} />;
 };
 
 export default Index;
